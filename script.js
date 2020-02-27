@@ -27,6 +27,12 @@ function playRound(playerSelection,computerSelection){
     else if(playerSelection === 'rock' && computerSelection === 'scissors') {
         return "player wins";
     }
+    else if(playerSelection === 'scissors' && computerSelection === 'paper') {
+        return "player wins";
+    }
+    else if(playerSelection === 'paper' && computerSelection === 'rock') {
+        return "player wins";
+    }
     else {
         return "player lose";
     }
@@ -58,8 +64,8 @@ function game() {
             console.log(`Round ${round} Goes to the Computer! ${capitalizeFirstLetter(computerSelection)} Beats ${capitalizeFirstLetter(playerSelection)}`);
         }
     }
-    if (ties  === 5) {
-        console.log("Impressive! All Rounds Where Ties");
+    if (ties  === 5 || playerWins === computerWins) {
+        console.log("Impressive! We Have a Tie");
     }
     else if (playerWins > computerWins) {
         console.log(`Congrats! You Beat the Computer ${playerWins} to ${computerWins}`);
