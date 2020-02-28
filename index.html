@@ -4,8 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Console Rock Paper Scissors</title>
-    <script src="script.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="resources/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+    <h1 class="main-title">Rock, Paper, Scissors</h1>
+    <h2 class="explain-title">Make your choice, human:</h2>
+    <div class="btn-container">
+        <button class="play-btn" id="playerRock"><i class="fa fa-hand-rock-o fa-5x" aria-hidden="true"></i>
+        </button>
+        <button class="play-btn" id="playerPaper"><i class="fa fa-hand-paper-o fa-5x" aria-hidden="true"></i></button>
+        <button class="play-btn" id="playerScissors"><i class="fa fa-hand-scissors-o fa-5x" aria-hidden="true"></i></button>
+    </div>
+    <h2 class="explain-title">My choice:</h2>
+    <div class="btn-container">
+        <button class="play-btn"><i class="fa fa-question-circle-o fa-5x" aria-hidden="true" id="computerChoiceIcon"></i></button>
+    </div>
+    <h2 class="explain-title" id="roundResult">Good Luck!</h2>
+    <h2 class="explain-title score-heading">Score</h2>
+    <h2 class="explain-title" id="playerWins">Player wins: 0/5</h2>
+    <h2 class="explain-title" id="computerWins">Computer wins: 0/5</h2>
+    <script type="text/javascript" src="script.js"></script>
 </body>
 </html>

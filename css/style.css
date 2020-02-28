@@ -1,0 +1,41 @@
+.main-title {
+    color: #111; 
+    font-family: 'Helvetica Neue', sans-serif; 
+    font-size: 100px; 
+    font-weight: bold; 
+    letter-spacing: -1px; 
+    line-height: 1; 
+    text-align: center; 
+}
+
+.explain-title {
+    color: #111; 
+    font-family: 'Helvetica Neue', sans-serif; 
+    font-size: 50px; 
+    font-weight: bold; 
+    letter-spacing: -1px; 
+    line-height: 1; 
+    text-align: center;
+    margin-top: 1%;
+}
+
+.score-heading {
+    text-decoration: underline;
+    font-size: 60px;
+    margin-top: 30px;
+}
+
+.btn-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1%;
+}
+
+.play-btn {
+    flex-grow: 0;
+    flex-basis: 10%;
+    padding: 2%;
+    margin: 0 1%;
+}

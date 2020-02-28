@@ -1,77 +1,104 @@
-"use strict"
+"use strict";
 
 function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function getUserInput() {
-    let validInput = false;
-    let playerSelection;
-    while(!validInput){
-        playerSelection = prompt("Choose! Rock, Paper or Scissors?").toLowerCase();
-        validInput = (playerSelection === 'rock' || playerSelection === 'paper' || playerSelection === 'scissors'); 
-    }
-    return playerSelection;
-}
-
-function computerPlay () {
-    const options = ["rock","paper","scissors"];
-    const randomOption = options[Math.floor(Math.random() * options.length)];
-    return randomOption;
-}
-
-function playRound(playerSelection,computerSelection){
-    if(playerSelection ===  computerSelection){
-        return "tie";
-    }
-    else if(playerSelection === 'rock' && computerSelection === 'scissors') {
-        return "player wins";
-    }
-    else if(playerSelection === 'scissors' && computerSelection === 'paper') {
-        return "player wins";
-    }
-    else if(playerSelection === 'paper' && computerSelection === 'rock') {
-        return "player wins";
-    }
-    else {
-        return "player lose";
-    }
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function game() {
-    const maxRounds = 5;
-    let round = 1;
-    let computerWins = 0;
-    let playerWins = 0;
-    let ties = 0;
-    let playerSelection;
-    let computerSelection;
-    let roundResult;
-    for (round; round <= maxRounds; round++) {
-        playerSelection = getUserInput();
-        computerSelection = computerPlay();
-        roundResult = playRound(playerSelection,computerSelection);
-        if(roundResult === "tie") {
-            ties++;
-            console.log(`Round ${round} is a Tie! You Both Choose ${capitalizeFirstLetter(playerSelection)}`);
-        }
-        else if (roundResult === "player wins") {
-            playerWins++;
-            console.log(`Round ${round} Goes to the Player! ${capitalizeFirstLetter(playerSelection)} Beats ${capitalizeFirstLetter(computerSelection)}`);
-        }
-        else {
-            computerWins++;
-            console.log(`Round ${round} Goes to the Computer! ${capitalizeFirstLetter(computerSelection)} Beats ${capitalizeFirstLetter(playerSelection)}`);
-        }
+  const maxWins = 5;
+  let playerWins = 0;
+  let computerWins = 0;
+
+  function initialGameState() {
+    playerWins = 0;
+    computerWins = 0;
+    document.querySelector("#computerChoiceIcon").className = "fa fa-question-circle-o fa-5x";
+    document.querySelector("#roundResult").textContent = "Good Luck!";
+    document.querySelector("#playerWins").textContent = `Player wins: 0/${maxWins}`;
+    document.querySelector("#computerWins").textContent = `Computer wins: 0/${maxWins}`;
+  }
+
+  function computerPlay() {
+    const options = ["rock", "paper", "scissors"];
+    const randomOption = options[Math.floor(Math.random() * options.length)];
+    return randomOption;
+  }
+
+  function checkWinner(){
+    if(playerWins === maxWins){
+      alert("Congratulations you Win!");
+      initialGameState();
     }
-    if (ties  === 5 || playerWins === computerWins) {
-        console.log("Impressive! We Have a Tie");
+    else if (computerWins === maxWins) {
+      alert("I win human!");
+      initialGameState();
     }
-    else if (playerWins > computerWins) {
-        console.log(`Congrats! You Beat the Computer ${playerWins} to ${computerWins}`);
+  }
+
+  function getComputerClasses(choice){
+    if (choice === 'rock') {
+      return 'fa fa-hand-rock-o fa-5x';
+    }
+    else if (choice === 'paper') {
+      return 'fa fa-hand-paper-o fa-5x';
     }
     else {
-        console.log(`Defeated, You Lost ${computerWins} to ${playerWins}`);
+      return 'fa fa-hand-scissors-o fa-5x';
     }
+  }
+
+  function updateScores(){
+    document.querySelector("#playerWins").textContent = `Player wins: ${playerWins}/5`;
+    document.querySelector("#computerWins").textContent = `Computer wins: ${computerWins}/5`;
+  }
+
+  function playRound(playerSelection, computerSelection) {
+    if (playerSelection === computerSelection) {
+      document.querySelector("#computerChoiceIcon").className = getComputerClasses(computerSelection);
+      document.querySelector("#roundResult").textContent = "We have a Tie!";
+    } else if (playerSelection === "rock" && computerSelection === "scissors") {
+      document.querySelector("#computerChoiceIcon").className = getComputerClasses(computerSelection);
+      document.querySelector("#roundResult").textContent = "The Player Wins this Round!";
+      playerWins++;
+      updateScores();
+      checkWinner();
+    } else if (playerSelection === "scissors" && computerSelection === "paper") {
+      document.querySelector("#computerChoiceIcon").className = getComputerClasses(computerSelection);
+      document.querySelector("#roundResult").textContent = "The Player Wins this Round!";
+      playerWins++;
+      updateScores();
+      checkWinner();
+    } else if (playerSelection === "paper" && computerSelection === "rock") {
+      document.querySelector("#computerChoiceIcon").className = getComputerClasses(computerSelection);
+      document.querySelector("#roundResult").textContent = "The Player Wins this Round!";
+      playerWins++;
+      updateScores();
+      checkWinner();
+    } else {
+      document.querySelector("#computerChoiceIcon").className = getComputerClasses(computerSelection);
+      document.querySelector("#roundResult").textContent = "I Win this Round!";
+      computerWins++;
+      updateScores();
+      checkWinner();
+    }
+  }
+  
+  function addEventListeners() {
+    let playerRockBtn = document.querySelector("#playerRock");
+    playerRockBtn.addEventListener("click", () => {
+      playRound('rock',computerPlay());
+    });
+    let playerPaperBtn = document.querySelector("#playerPaper");
+    playerPaperBtn.addEventListener("click", () => {
+      playRound('paper',computerPlay());
+    });
+    let playerScissorsBtn = document.querySelector("#playerScissors");
+    playerScissorsBtn.addEventListener("click", () => {
+      playRound('scissors',computerPlay());
+    });
+  }
+
+  initialGameState();
+  addEventListeners();
 }
 game();
